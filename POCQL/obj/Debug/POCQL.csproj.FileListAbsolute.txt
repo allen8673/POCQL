@@ -1,0 +1,9 @@
+C:\Users\allen_000\Desktop\MyProject\POCQL.Test\POCQL\obj\Debug\POCQL.csprojResolveAssemblyReference.cache
+C:\Users\allen_000\Desktop\MyProject\POCQL.Test\POCQL\bin\Debug\POCQL.dll
+C:\Users\allen_000\Desktop\MyProject\POCQL.Test\POCQL\bin\Debug\POCQL.pdb
+C:\Users\allen_000\Desktop\MyProject\POCQL.Test\POCQL\bin\Debug\Dao.dll
+C:\Users\allen_000\Desktop\MyProject\POCQL.Test\POCQL\bin\Debug\Dapper.dll
+C:\Users\allen_000\Desktop\MyProject\POCQL.Test\POCQL\bin\Debug\Dao.pdb
+C:\Users\allen_000\Desktop\MyProject\POCQL.Test\POCQL\bin\Debug\Dapper.xml
+C:\Users\allen_000\Desktop\MyProject\POCQL.Test\POCQL\obj\Debug\POCQL.dll
+C:\Users\allen_000\Desktop\MyProject\POCQL.Test\POCQL\obj\Debug\POCQL.pdb

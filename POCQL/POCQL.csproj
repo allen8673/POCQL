@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B2459A5F-B4BF-4D74-82AE-D90B9ABE04DC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>POCQL</RootNamespace>
+    <AssemblyName>POCQL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\SqlHelper.cs" />
+    <Compile Include="Model\ColumnModel\ColumnBinder.cs" />
+    <Compile Include="Model\ColumnModel\ColumnPropertyInfo.cs" />
+    <Compile Include="Model\ColumnModel\ColumnSet.cs" />
+    <Compile Include="Model\ColumnModel\ValueBinder.cs" />
+    <Compile Include="Model\ConditionModel\ConditionBinder.cs" />
+    <Compile Include="Model\ConditionModel\ConditionPropertyInfo.cs" />
+    <Compile Include="Model\ConditionModel\ConditionSet.cs" />
+    <Compile Include="Model\DataSourceSet.cs" />
+    <Compile Include="Model\Enum.cs" />
+    <Compile Include="Model\Interface\IConditionModel.cs" />
+    <Compile Include="Model\Interface\IEntityModel.cs" />
+    <Compile Include="Model\Interface\ITableDetail.cs" />
+    <Compile Include="Model\InternalAttribute\NullDescriptionAttribute.cs" />
+    <Compile Include="Model\InternalAttribute\RawDescriptionAttribute.cs" />
+    <Compile Include="Model\InternalModel\OrderBySetting.cs" />
+    <Compile Include="Model\MapAttribute\AggregationAttribute.cs" />
+    <Compile Include="Model\MapAttribute\AttributeEnum.cs" />
+    <Compile Include="Model\MapAttribute\BetweenSetAttribute.cs" />
+    <Compile Include="Model\MapAttribute\ColumnMapperAttribute.cs" />
+    <Compile Include="Model\MapAttribute\ConditionMapperAttribute.cs" />
+    <Compile Include="Model\MapAttribute\CustomizeAttribute.cs" />
+    <Compile Include="Model\MapAttribute\EntityMapperAttribute.cs" />
+    <Compile Include="Model\MapAttribute\MultiColumnMapperAttribute.cs" />
+    <Compile Include="Model\MapAttribute\NullableAttribute.cs" />
+    <Compile Include="Model\MapAttribute\PrimaryKeyAttribute.cs" />
+    <Compile Include="Model\MapAttribute\ReadOnlyAttribute.cs" />
+    <Compile Include="Model\OrderSet.cs" />
+    <Compile Include="Model\PagingResult.cs" />
+    <Compile Include="Model\SqlSet.cs" />
+    <Compile Include="Model\STMOperator.cs" />
+    <Compile Include="Model\TableSet.cs" />
+    <Compile Include="Process\Delete.cs" />
+    <Compile Include="Process\Helper\ColumnSetHelper.cs" />
+    <Compile Include="Process\Helper\Condition\ConditionMapperSetting.cs" />
+    <Compile Include="Process\Helper\Condition\ConditionSetHelper.cs" />
+    <Compile Include="Process\Helper\Condition\IConditionSetter.cs" />
+    <Compile Include="Process\Helper\MustAppend\AppendProperty.cs" />
+    <Compile Include="Process\Helper\MustAppend\IMustAppend.cs" />
+    <Compile Include="Process\Helper\Nullable\INullable.cs" />
+    <Compile Include="Process\Helper\Nullable\NullableProperty.cs" />
+    <Compile Include="Process\Helper\ProcessHelper.cs" />
+    <Compile Include="Process\Insert.cs" />
+    <Compile Include="Process\MoveData.cs" />
+    <Compile Include="Process\Select.cs" />
+    <Compile Include="Process\Update.cs" />
+    <Compile Include="Process\Utility.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlObject\BasicInterface\IBaseObject.cs" />
+    <Compile Include="SqlObject\BasicInterface\ICommonObject.cs" />
+    <Compile Include="SqlObject\BasicInterface\IDeleteObject.cs" />
+    <Compile Include="SqlObject\BasicInterface\IInsertObject.cs" />
+    <Compile Include="SqlObject\BasicInterface\IMoveDataObject.cs" />
+    <Compile Include="SqlObject\BasicInterface\ISelectObject.cs" />
+    <Compile Include="SqlObject\BasicInterface\IUpdateObject.cs" />
+    <Compile Include="SqlObject\Basic\BaseDeleteObject.cs" />
+    <Compile Include="SqlObject\Basic\BaseInsertObject.cs" />
+    <Compile Include="SqlObject\Basic\BaseMoveDataObject.cs" />
+    <Compile Include="SqlObject\Basic\BaseObject.cs" />
+    <Compile Include="SqlObject\Basic\BaseSelectObject.cs" />
+    <Compile Include="SqlObject\Basic\BaseUpdateObject.cs" />
+    <Compile Include="SqlObject\Basic\CommonObject.cs" />
+    <Compile Include="SqlObject\Interface\ICondition.cs" />
+    <Compile Include="SqlObject\Interface\IReserved.cs" />
+    <Compile Include="SqlObject\MSSQL\DeleteObject.cs" />
+    <Compile Include="SqlObject\MSSQL\InsertObject.cs" />
+    <Compile Include="SqlObject\MSSQL\MoveDataObject.cs" />
+    <Compile Include="SqlObject\MSSQL\SelectObject.cs" />
+    <Compile Include="SqlObject\MSSQL\UpdateObject.cs" />
+    <Compile Include="ToolExt\ArrayExt.cs" />
+    <Compile Include="ToolExt\DictionaryExt.cs" />
+    <Compile Include="ToolExt\EnumExt.cs" />
+    <Compile Include="ToolExt\IEnumerableExt.cs" />
+    <Compile Include="ToolExt\ObjectExt.cs" />
+    <Compile Include="ToolExt\StringExt.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dao\Dao.csproj">
+      <Project>{5e77cdba-aec3-494d-a1e2-e9b3ff4773c5}</Project>
+      <Name>Dao</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

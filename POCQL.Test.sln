@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POCQL.Test", "POCQL.Test\POCQL.Test.csproj", "{F8E99DF3-0981-46F0-8D92-C4FFB73E65F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POCQL", "POCQL\POCQL.csproj", "{B2459A5F-B4BF-4D74-82AE-D90B9ABE04DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dao", "Dao\Dao.csproj", "{5E77CDBA-AEC3-494D-A1E2-E9B3FF4773C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8E99DF3-0981-46F0-8D92-C4FFB73E65F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8E99DF3-0981-46F0-8D92-C4FFB73E65F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8E99DF3-0981-46F0-8D92-C4FFB73E65F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8E99DF3-0981-46F0-8D92-C4FFB73E65F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2459A5F-B4BF-4D74-82AE-D90B9ABE04DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2459A5F-B4BF-4D74-82AE-D90B9ABE04DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2459A5F-B4BF-4D74-82AE-D90B9ABE04DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2459A5F-B4BF-4D74-82AE-D90B9ABE04DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E77CDBA-AEC3-494D-A1E2-E9B3FF4773C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E77CDBA-AEC3-494D-A1E2-E9B3FF4773C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E77CDBA-AEC3-494D-A1E2-E9B3FF4773C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E77CDBA-AEC3-494D-A1E2-E9B3FF4773C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
