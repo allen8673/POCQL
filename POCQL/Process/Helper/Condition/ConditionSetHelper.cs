@@ -13,12 +13,6 @@ namespace POCQL.Process.Helper
     static class ConditionSetHelper
     {
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-
-        /// <summary>
         /// 根據物件的設定取得ConditionSet的資訊列
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -31,8 +25,8 @@ namespace POCQL.Process.Helper
             // *** 檢核Domain Model是否符合規範 ***
             return obj.ObjectAuth(entityAttr =>
             {
-                var conditionSetting = obj is IConditionSetter ?
-                                       ((IConditionSetter)obj).ConditionSetting ?? new ConditionMapperSetting()
+                var conditionSetting = obj is ICondition ?
+                                       ((ICondition)obj).ConditionSetting ?? new ConditionMapperSetting()
                                        : new ConditionMapperSetting();
 
                 // ***  取得NULL Able 白名單 ***

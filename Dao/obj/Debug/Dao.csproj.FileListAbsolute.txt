@@ -1,7 +1,0 @@
-C:\Users\allen_000\Desktop\MyProject\POCQL.Test\Dao\bin\Debug\Dao.dll
-C:\Users\allen_000\Desktop\MyProject\POCQL.Test\Dao\bin\Debug\Dao.pdb
-C:\Users\allen_000\Desktop\MyProject\POCQL.Test\Dao\bin\Debug\Dapper.dll
-C:\Users\allen_000\Desktop\MyProject\POCQL.Test\Dao\bin\Debug\Dapper.xml
-C:\Users\allen_000\Desktop\MyProject\POCQL.Test\Dao\obj\Debug\Dao.dll
-C:\Users\allen_000\Desktop\MyProject\POCQL.Test\Dao\obj\Debug\Dao.pdb
-C:\Users\allen_000\Desktop\MyProject\POCQL.Test\Dao\obj\Debug\Dao.csprojResolveAssemblyReference.cache

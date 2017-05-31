@@ -141,13 +141,11 @@ namespace POCQL.SqlObject
         /// 設定WHERE資訊
         /// </summary>
         /// <param name="conditionObj">經由ColumnMapperAttribute設定的條件式物件</param>
-        /// <param name="otherConditions">其他WHERE條件式物件</param>
         /// <returns></returns>
-        public TDerive Where<T>(T conditionObj, params ConditionSet[] otherConditions)
+        public TDerive Where<T>(T conditionObj)
             where T : class
         {
             this.ConditionInfo = ConditionSetHelper.GetCondition(conditionObj)
-                                                   .Union(otherConditions)
                                                    .ToArray();
             return this as TDerive;
         }
@@ -158,46 +156,15 @@ namespace POCQL.SqlObject
         /// <typeparam name="T"></typeparam>
         /// <param name="conditionObj">經由ColumnMapperAttribute設定的條件式物件</param>
         /// <param name="paramTemplate">條件物件參數Template，請以XXX{#PROP#}XX給</param>
-        /// <param name="otherConditions">其他WHERE條件式物件</param>
         /// <returns></returns>
-        public TDerive Where<T>(T conditionObj, string paramTemplate, params ConditionSet[] otherConditions)
+        public TDerive Where<T>(T conditionObj, string paramTemplate)
             where T : class
         {
             this.ConditionInfo = ConditionSetHelper.GetCondition(conditionObj, paramTemplate)
-                                                   .Union(otherConditions)
                                                    .ToArray();
             return this as TDerive;
         }
-
-        /// <summary>
-        /// 設定WHERE資訊
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="otherConditions">其他WHERE條件式物件</param>
-        /// <param name="conditionObj">經由ColumnMapperAttribute設定的條件式物件</param>
-        /// <returns></returns>
-        public TDerive Where<T>(IEnumerable<ConditionSet> otherConditions, T conditionObj)
-            where T : class
-        {
-            this.ConditionInfo = otherConditions.Union(ConditionSetHelper.GetCondition(conditionObj))
-                                                .ToArray();
-            return this as TDerive;
-        }
-
-        /// <summary>
-        /// 設定WHERE資訊
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="otherCondition">其他WHERE條件式物件</param>
-        /// <param name="conditionObj">經由ColumnMapperAttribute設定的條件式物件</param>
-        /// <returns></returns>
-        public TDerive Where<T>(ConditionSet otherCondition, T conditionObj)
-            where T : class
-        {
-            this.ConditionInfo = otherCondition + ConditionSetHelper.GetCondition(conditionObj).ToArray();
-            return this as TDerive;
-        }
-
+        
         /// <summary>
         /// 設定WHERE資訊
         /// </summary>

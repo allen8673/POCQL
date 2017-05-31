@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace POCQL.SqlObject
 {
-    interface IBaseObject<TDerive> : ICondition<TDerive>
+    interface IBaseObject<TDerive> : IConditionObject<TDerive>
     {
         /// <summary>
         /// 輸出SQL和SQL需要的參數

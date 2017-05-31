@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace POCQL.SqlObject
 {
-    interface ISelectObject<TDerive> : IBaseObject<TDerive>, IReserved<TDerive>
+    interface ISelectObject<TDerive> : IBaseObject<TDerive>, IReservedObject<TDerive>
         where TDerive : class
     {
         string Sql { get; }
@@ -25,22 +25,40 @@ namespace POCQL.SqlObject
         /// <summary>
         /// 設定要查詢的欄位
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TDomain"></typeparam>
+        /// <param name="binder">Column Binder</param>
         /// <returns></returns>
-        TDerive Columns<T>() where T : class;
+        TDerive Columns<TDomain>(ColumnBinder<TDomain> binder);
 
         /// <summary>
         /// 設定要查詢的欄位
         /// </summary>
         /// <typeparam name="TDomain"></typeparam>
         /// <typeparam name="TView"></typeparam>
-        /// <param name="domainProperties">
-        ///     強制查詢的Domain Model Property；
-        ///     如果有一定要查詢的Domain Model Property，但是擔心View Model沒有指定，可以強制指定。
+        /// <param name="binder">Column Binder</param>
+        /// <returns></returns>
+        TDerive Columns<TDomain, TView>(ColumnBinder<TDomain, TView> binder);
+
+        /// <summary>
+        /// 設定要查詢的欄位
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mapToProp">
+        ///     是否轉換結果的名字，如果要，最後會以{Column} AS {Property Name}輸出結果
         /// </param>
         /// <returns></returns>
-        TDerive Columns<TDomain, TView>()
-            where TDomain : class;
+        TDerive Columns<T>(bool mapToProp = true) where T : class;
+
+        /// <summary>
+        /// 設定要查詢的欄位
+        /// </summary>
+        /// <typeparam name="TDomain"></typeparam>
+        /// <typeparam name="TView"></typeparam>
+        /// <param name="mapToProp">
+        ///     是否轉換結果的名字，如果要，最後會以{Column} AS {Property Name}輸出結果
+        /// </param>
+        /// <returns></returns>
+        TDerive Columns<TDomain, TView>(bool mapToProp = true) where TDomain : class;
 
         /// <summary>
         /// 設定要查詢的欄位

@@ -51,8 +51,6 @@
     <Compile Include="Model\ConditionModel\ConditionSet.cs" />
     <Compile Include="Model\DataSourceSet.cs" />
     <Compile Include="Model\Enum.cs" />
-    <Compile Include="Model\Interface\IConditionModel.cs" />
-    <Compile Include="Model\Interface\IEntityModel.cs" />
     <Compile Include="Model\Interface\ITableDetail.cs" />
     <Compile Include="Model\InternalAttribute\NullDescriptionAttribute.cs" />
     <Compile Include="Model\InternalAttribute\RawDescriptionAttribute.cs" />
@@ -77,7 +75,7 @@
     <Compile Include="Process\Helper\ColumnSetHelper.cs" />
     <Compile Include="Process\Helper\Condition\ConditionMapperSetting.cs" />
     <Compile Include="Process\Helper\Condition\ConditionSetHelper.cs" />
-    <Compile Include="Process\Helper\Condition\IConditionSetter.cs" />
+    <Compile Include="Process\Helper\Condition\ICondition.cs" />
     <Compile Include="Process\Helper\MustAppend\AppendProperty.cs" />
     <Compile Include="Process\Helper\MustAppend\IMustAppend.cs" />
     <Compile Include="Process\Helper\Nullable\INullable.cs" />
@@ -103,8 +101,8 @@
     <Compile Include="SqlObject\Basic\BaseSelectObject.cs" />
     <Compile Include="SqlObject\Basic\BaseUpdateObject.cs" />
     <Compile Include="SqlObject\Basic\CommonObject.cs" />
-    <Compile Include="SqlObject\Interface\ICondition.cs" />
-    <Compile Include="SqlObject\Interface\IReserved.cs" />
+    <Compile Include="SqlObject\Interface\IConditionObject.cs" />
+    <Compile Include="SqlObject\Interface\IReservedObject.cs" />
     <Compile Include="SqlObject\MSSQL\DeleteObject.cs" />
     <Compile Include="SqlObject\MSSQL\InsertObject.cs" />
     <Compile Include="SqlObject\MSSQL\MoveDataObject.cs" />

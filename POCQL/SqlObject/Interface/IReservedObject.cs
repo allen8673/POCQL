@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace POCQL.SqlObject
 {
-    interface IReserved<TDerive>
+    interface IReservedObject<TDerive>
     {
         /// <summary>
         /// Select Top ...

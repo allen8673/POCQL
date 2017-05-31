@@ -17,7 +17,7 @@ namespace POCQL.Model
     /// </summary>
     public class ConditionSet : STMOperator<ConditionSet>, ITableDetail
     {
-        public ConditionSet(string customCondition, AndOrOperator andOr = AndOrOperator.AND) 
+        internal ConditionSet(string customCondition, AndOrOperator andOr = AndOrOperator.AND) 
         {
             this.CustomCondition = customCondition;
             this.AndOr = andOr;

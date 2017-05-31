@@ -11,7 +11,7 @@ using POCQL.ToolExt;
 
 namespace POCQL.Process.Helper
 {
-    static class ColumnSetHelper
+    internal static class ColumnSetHelper
     {
         /// <summary>
         /// 取得物件Property對應的Column資訊
