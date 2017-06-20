@@ -13,7 +13,7 @@ namespace POCQL.SqlObject
     /// 並且補足需要的Property
     /// </summary>
     /// <typeparam name="TDerive">繼承類別型態</typeparam>
-    public abstract class BaseMoveDataObject<TDerive> : BaseDeleteObject<TDerive>, IMoveDataObject<TDerive>
+    public abstract class BaseMoveDataObject<TDerive> : BaseDeleteObject<TDerive>
         where TDerive : class
     {
         /// <summary>

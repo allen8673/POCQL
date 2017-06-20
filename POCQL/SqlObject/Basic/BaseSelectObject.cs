@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace POCQL.SqlObject
 {
-    public abstract class BaseSelectObject<TDerive> : BaseObject<TDerive>, ISelectObject<TDerive>
+    public abstract class BaseSelectObject<TDerive> : BaseObject<TDerive>
         where TDerive : class
     {
         public BaseSelectObject()

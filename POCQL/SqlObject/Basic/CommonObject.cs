@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace POCQL.SqlObject
 {
-    public abstract class CommonObject<TDerive> : BaseObject<TDerive>, ICommonObject<TDerive>
+    public abstract class CommonObject<TDerive> : BaseObject<TDerive>
         where TDerive : class
     {
         #region Properties

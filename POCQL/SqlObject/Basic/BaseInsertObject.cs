@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace POCQL.SqlObject
 {
-    public abstract class BaseInsertObject<TDerive> : CommonObject<TDerive>, IInsertObject<TDerive>
+    public abstract class BaseInsertObject<TDerive> : CommonObject<TDerive>
         where TDerive : class
     {
         /// <summary>

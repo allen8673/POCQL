@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace POCQL.MSSQL
 {
-    public sealed class MoveDataObject : BaseMoveDataObject<MoveDataObject>, IMoveDataObject<MoveDataObject>
+    public sealed class MoveDataObject : BaseMoveDataObject<MoveDataObject>
     {
         internal MoveDataObject()
         {

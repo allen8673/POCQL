@@ -1,0 +1,13 @@
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\obj\Debug\POCQL.Test.csprojResolveAssemblyReference.cache
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\POCQL.Test.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\POCQL.Test.pdb
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\POCQL.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\Dao.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\Dapper.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\POCQL.pdb
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\Dao.pdb
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\Dapper.xml
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\bin\Debug\zh-Hant\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\obj\Debug\POCQL.Test.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.Test\obj\Debug\POCQL.Test.pdb

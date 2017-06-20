@@ -9,7 +9,7 @@ using POCQL.ToolExt;
 
 namespace POCQL.SqlObject
 {
-    public abstract class BaseDeleteObject<TDerive> : BaseObject<TDerive>, IDeleteObject<TDerive>
+    public abstract class BaseDeleteObject<TDerive> : BaseObject<TDerive>
         where TDerive : class
     {
         private string _Condition;

@@ -10,7 +10,7 @@ using POCQL.ToolExt;
 
 namespace POCQL.MSSQL
 {
-    public sealed class UpdateObject : BaseUpdateObject<UpdateObject>, IUpdateObject<UpdateObject>
+    public sealed class UpdateObject : BaseUpdateObject<UpdateObject>
     {
         internal UpdateObject()
         {

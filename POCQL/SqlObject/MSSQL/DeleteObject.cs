@@ -8,7 +8,7 @@ using POCQL.Model;
 
 namespace POCQL.MSSQL
 {
-    public sealed class DeleteObject : BaseDeleteObject<DeleteObject>, IDeleteObject<DeleteObject>
+    public sealed class DeleteObject : BaseDeleteObject<DeleteObject>
     {
         internal DeleteObject()
         {

@@ -168,8 +168,6 @@ namespace POCQL.Model
             if (tabelParamMaps.TryGetValue(this.TableParameter, out newName))
             {
                 this.TableName = newName;
-                this.TableParameter = string.Empty;
-
             }
         }
 

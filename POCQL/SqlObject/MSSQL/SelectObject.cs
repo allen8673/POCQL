@@ -10,7 +10,7 @@ using POCQL.ToolExt;
 
 namespace POCQL.MSSQL
 {
-    public sealed class SelectObject : BaseSelectObject<SelectObject>, ISelectObject<SelectObject>
+    public sealed class SelectObject : BaseSelectObject<SelectObject>
     {
         internal SelectObject(params ColumnSet[] columns)
         {

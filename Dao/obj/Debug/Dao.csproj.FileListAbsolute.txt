@@ -1,0 +1,6 @@
+\\Mac\Dropbox\SideProject\POCQL\Dao\bin\Debug\Dao.dll
+\\Mac\Dropbox\SideProject\POCQL\Dao\bin\Debug\Dao.pdb
+\\Mac\Dropbox\SideProject\POCQL\Dao\bin\Debug\Dapper.dll
+\\Mac\Dropbox\SideProject\POCQL\Dao\bin\Debug\Dapper.xml
+\\Mac\Dropbox\SideProject\POCQL\Dao\obj\Debug\Dao.dll
+\\Mac\Dropbox\SideProject\POCQL\Dao\obj\Debug\Dao.pdb

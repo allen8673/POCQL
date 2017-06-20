@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace POCQL.SqlObject
 {
-    public abstract class BaseObject<TDerive> : STMOperator<TDerive>, IBaseObject<TDerive>
+    public abstract class BaseObject<TDerive> : STMOperator<TDerive> 
         where TDerive : class
     {
         internal BaseObject()
@@ -197,8 +197,6 @@ namespace POCQL.SqlObject
             return this as TDerive;
         }
 
-
-
         /// <summary>
         /// 設定CTE資訊
         /// </summary>
@@ -208,6 +206,15 @@ namespace POCQL.SqlObject
         {
             this.CteContain = cte;
             return this as TDerive;
+        }
+
+        /// <summary>
+        /// 淺複製(Shallow Clone)
+        /// </summary>
+        /// <returns></returns>
+        public TDerive Clone()
+        {
+            return this.MemberwiseClone() as TDerive;
         }
     }
 }

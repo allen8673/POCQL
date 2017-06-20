@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace POCQL.MSSQL
 {
-    public sealed class InsertObject : BaseInsertObject<InsertObject>, IInsertObject<InsertObject>
+    public sealed class InsertObject : BaseInsertObject<InsertObject>
     {
         internal InsertObject()
         {

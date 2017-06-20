@@ -87,13 +87,6 @@
     <Compile Include="Process\Update.cs" />
     <Compile Include="Process\Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlObject\BasicInterface\IBaseObject.cs" />
-    <Compile Include="SqlObject\BasicInterface\ICommonObject.cs" />
-    <Compile Include="SqlObject\BasicInterface\IDeleteObject.cs" />
-    <Compile Include="SqlObject\BasicInterface\IInsertObject.cs" />
-    <Compile Include="SqlObject\BasicInterface\IMoveDataObject.cs" />
-    <Compile Include="SqlObject\BasicInterface\ISelectObject.cs" />
-    <Compile Include="SqlObject\BasicInterface\IUpdateObject.cs" />
     <Compile Include="SqlObject\Basic\BaseDeleteObject.cs" />
     <Compile Include="SqlObject\Basic\BaseInsertObject.cs" />
     <Compile Include="SqlObject\Basic\BaseMoveDataObject.cs" />
@@ -101,8 +94,6 @@
     <Compile Include="SqlObject\Basic\BaseSelectObject.cs" />
     <Compile Include="SqlObject\Basic\BaseUpdateObject.cs" />
     <Compile Include="SqlObject\Basic\CommonObject.cs" />
-    <Compile Include="SqlObject\Interface\IConditionObject.cs" />
-    <Compile Include="SqlObject\Interface\IReservedObject.cs" />
     <Compile Include="SqlObject\MSSQL\DeleteObject.cs" />
     <Compile Include="SqlObject\MSSQL\InsertObject.cs" />
     <Compile Include="SqlObject\MSSQL\MoveDataObject.cs" />
