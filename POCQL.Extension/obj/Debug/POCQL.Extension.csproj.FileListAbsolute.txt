@@ -1,5 +1,0 @@
-\\Mac\Dropbox\SideProject\POCQL\POCQL.Extension\bin\Debug\POCQL.Extension.dll
-\\Mac\Dropbox\SideProject\POCQL\POCQL.Extension\bin\Debug\POCQL.Extension.pdb
-\\Mac\Dropbox\SideProject\POCQL\POCQL.Extension\obj\Debug\POCQL.Extension.csprojResolveAssemblyReference.cache
-\\Mac\Dropbox\SideProject\POCQL\POCQL.Extension\obj\Debug\POCQL.Extension.dll
-\\Mac\Dropbox\SideProject\POCQL\POCQL.Extension\obj\Debug\POCQL.Extension.pdb
