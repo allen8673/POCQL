@@ -7,14 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using POCQL.MSSQL;
-using POCQL.ToolExt;
-using Dao;
+using POCQL.Extension;
+using System.Data;
+using POCQL.DAO;
+using POCQL.DAO.ConnectionObject;
 
 namespace POCQL
 {
     public static class Select
     {
-        private static ITransaction Trans { get { return DbConnectFactory.CreateConnection(""); } }
+        private static DataAccess Trans
+        {
+            get
+            {
+                Factory odbcFac = new OdbcFactory { };
+                return new DataAccess(odbcFac);
+            }
+        }
 
         /// <summary>
         /// Select Distinct ...
@@ -202,7 +211,7 @@ namespace POCQL
         /// <param name="obj"></param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static IEnumerable<T> Query<T>(this SelectObject obj, ITransaction trans = null)
+        public static IEnumerable<T> Query<T>(this SelectObject obj, DataAccess trans = null)
         {
             string sql = obj.ToString();
             Dictionary<string, object> finalParameters = obj.ConditionInfo.ToDictionary();
@@ -219,7 +228,7 @@ namespace POCQL
         /// <param name="parameters">查詢參數</param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static IEnumerable<T> Query<T>(this SelectObject obj, object parameters, ITransaction trans = null)
+        public static IEnumerable<T> Query<T>(this SelectObject obj, object parameters, DataAccess trans = null)
         {
             string sql = obj.ToString();
             Dictionary<string, object> finalParameters = parameters.ToDictionary().MergeDictionary(obj.ConditionInfo.ToDictionary());
@@ -239,7 +248,7 @@ namespace POCQL
         /// <param name="map">物件對應關係</param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static IEnumerable<TResult> Query<T1, T2, TResult>(this SelectObject obj, object parameters, Func<T1, T2, TResult> map, ITransaction trans = null)
+        public static IEnumerable<TResult> Query<T1, T2, TResult>(this SelectObject obj, object parameters, Func<T1, T2, TResult> map, DataAccess trans = null)
         {
             if (obj.SplitPoint.Count() != 1) throw new Exception("查詢型別數量與分割點數不符，請確定是否有明確設定型別之間的分割點");
 
@@ -256,7 +265,7 @@ namespace POCQL
         /// <param name="obj"></param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static IEnumerable<IDictionary<string, object>> Query(this SelectObject obj, ITransaction trans = null)
+        public static IEnumerable<IDictionary<string, object>> Query(this SelectObject obj, DataAccess trans = null)
         {
             trans = trans ?? Select.Trans;
             return trans.Query(obj.ToString(), obj.ConditionInfo.ToDictionary());
@@ -269,7 +278,7 @@ namespace POCQL
         /// <param name="parameters">查詢參數</param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static IEnumerable<IDictionary<string, object>> Query(this SelectObject obj, object parameters, ITransaction trans = null)
+        public static IEnumerable<IDictionary<string, object>> Query(this SelectObject obj, object parameters, DataAccess trans = null)
         {
             string sql = obj.ToString();
             Dictionary<string, object> finalParameters = parameters.ToDictionary().MergeDictionary(obj.ConditionInfo.ToDictionary());
@@ -285,7 +294,7 @@ namespace POCQL
         /// <param name="obj"></param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static PagingResult<T> PagingQuery<T>(this SelectObject obj, ITransaction trans = null)
+        public static PagingResult<T> PagingQuery<T>(this SelectObject obj, DataAccess trans = null)
         {
             string sql = obj.Sql + Environment.NewLine + obj.CountSql;
             Dictionary<string, object> finalParameters = obj.ConditionInfo.ToDictionary();
@@ -305,7 +314,7 @@ namespace POCQL
         /// <param name="map">回傳型別對應Lambda</param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static TResult PagingQuery<TData, TResult>(this SelectObject obj, Func<PagingResult<TData>, TResult> map, ITransaction trans = null)
+        public static TResult PagingQuery<TData, TResult>(this SelectObject obj, Func<PagingResult<TData>, TResult> map, DataAccess trans = null)
         {
             var result = obj.PagingQuery<TData>(trans);
             return map(result);
@@ -320,7 +329,7 @@ namespace POCQL
         /// <param name="parameters">查詢參數</param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static PagingResult<T> PagingQuery<T>(this SelectObject obj, object parameters, ITransaction trans = null)
+        public static PagingResult<T> PagingQuery<T>(this SelectObject obj, object parameters, DataAccess trans = null)
         {
             string sql = obj.Sql + Environment.NewLine + obj.CountSql;
             Dictionary<string, object> finalParameters = parameters.ToDictionary().MergeDictionary(obj.ConditionInfo.ToDictionary());
@@ -341,7 +350,7 @@ namespace POCQL
         /// <param name="map">回傳型別對應Lambda</param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static TResult PagingQuery<TData, TResult>(this SelectObject obj, object parameters, Func<PagingResult<TData>, TResult> map, ITransaction trans = null)
+        public static TResult PagingQuery<TData, TResult>(this SelectObject obj, object parameters, Func<PagingResult<TData>, TResult> map, DataAccess trans = null)
         {
             var result = obj.PagingQuery<TData>(parameters, trans);
             return map(result);
@@ -353,7 +362,7 @@ namespace POCQL
         /// <param name="obj"></param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static bool Exists(this SelectObject obj, ITransaction trans = null)
+        public static bool Exists(this SelectObject obj, DataAccess trans = null)
         {
             trans = trans ?? Select.Trans;
             return trans.Query<bool>(obj.ExistSql, obj.ConditionInfo.ToDictionary()).First();
@@ -366,7 +375,7 @@ namespace POCQL
         /// <param name="parameters">查詢參數</param>
         /// <param name="trans">指定執行的ITransaction物件</param>
         /// <returns></returns>
-        public static bool Exists(this SelectObject obj, object parameters, ITransaction trans = null)
+        public static bool Exists(this SelectObject obj, object parameters, DataAccess trans = null)
         {
             Dictionary<string, object> finalParameters = parameters.ToDictionary().MergeDictionary(obj.ConditionInfo.ToDictionary());
 

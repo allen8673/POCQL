@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -51,6 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DaoTest.cs" />
     <Compile Include="EditorExample.cs" />
     <Compile Include="Model\ConditionModel.cs" />
     <Compile Include="Model\EditorModel.cs" />
@@ -63,6 +65,10 @@
     <Compile Include="SelectExample.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\POCQL.DAO\POCQL.DAO.csproj">
+      <Project>{5D6C3FF0-63FB-45A7-BECE-496F0461782B}</Project>
+      <Name>POCQL.DAO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\POCQL\POCQL.csproj">
       <Project>{B2459A5F-B4BF-4D74-82AE-D90B9ABE04DC}</Project>
       <Name>POCQL</Name>

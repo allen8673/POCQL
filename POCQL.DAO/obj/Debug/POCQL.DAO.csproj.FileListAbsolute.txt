@@ -1,0 +1,9 @@
+\\Mac\Dropbox\SideProject\POCQL\POCQL.DAO\bin\Debug\POCQL.DAO.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.DAO\bin\Debug\POCQL.DAO.pdb
+\\Mac\Dropbox\SideProject\POCQL\POCQL.DAO\bin\Debug\Dapper.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.DAO\bin\Debug\POCQL.Extension.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.DAO\bin\Debug\POCQL.Extension.pdb
+\\Mac\Dropbox\SideProject\POCQL\POCQL.DAO\bin\Debug\Dapper.xml
+\\Mac\Dropbox\SideProject\POCQL\POCQL.DAO\obj\Debug\POCQL.DAO.dll
+\\Mac\Dropbox\SideProject\POCQL\POCQL.DAO\obj\Debug\POCQL.DAO.pdb
+\\Mac\Dropbox\SideProject\POCQL\POCQL.DAO\obj\Debug\POCQL.DAO.csprojResolveAssemblyReference.cache

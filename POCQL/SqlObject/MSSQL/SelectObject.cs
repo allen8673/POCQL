@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using POCQL.ToolExt;
+using POCQL.Extension;
 
 namespace POCQL.MSSQL
 {

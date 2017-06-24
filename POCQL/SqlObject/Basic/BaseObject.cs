@@ -1,4 +1,5 @@
-﻿using POCQL.Model;
+﻿using POCQL.DAO.Model;
+using POCQL.Model;
 using POCQL.Model.MapAttribute;
 using POCQL.Process.Helper;
 using System;

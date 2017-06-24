@@ -1,4 +1,4 @@
-﻿using POCQL.ToolExt;
+﻿using POCQL.Extension;
 using System;
 using System.Collections.Generic;
 using System.Linq;

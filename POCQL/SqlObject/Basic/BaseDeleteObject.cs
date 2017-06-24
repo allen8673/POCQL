@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using POCQL.Model;
 using POCQL.Process.Helper;
-using POCQL.ToolExt;
+using POCQL.Extension;
+using POCQL.DAO.Model;
 
 namespace POCQL.SqlObject
 {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POCQL.DAO.Model;
 using POCQL.Model;
 using POCQL.Test.Example.Model;
 using System;

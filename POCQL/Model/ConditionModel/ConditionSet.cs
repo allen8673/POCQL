@@ -1,8 +1,8 @@
-﻿using POCQL.Model.Interface;
+﻿using POCQL.Extension;
+using POCQL.Model.Interface;
 using POCQL.Model.InternalAttribute;
 using POCQL.Model.MapAttribute;
 using POCQL.MSSQL;
-using POCQL.ToolExt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -139,7 +139,7 @@ namespace POCQL.Model
 
             // *** 如果Value為NULL，就直接回傳IS/IS NOT NULL運算式
             if (this.Value == null)
-                return this.Operator.GetNullDescription().ExtFormat(column);
+                return this.Operator.GetNullDescription().StringFormat(column);
 
             // *** 如果是Between，邏輯要另外處理 ***
             if (this.Operator == ConditionOperator.Between)
@@ -148,7 +148,7 @@ namespace POCQL.Model
             string desc = defaultDesc ? this.Operator.GetDescription(): 
                                         this.Operator.GetRawDescription();
 
-            return desc.ExtFormat(column, defaultDesc ? this.ParameterName : this.SubQuery) ;
+            return desc.StringFormat(column, defaultDesc ? this.ParameterName : this.SubQuery) ;
         }
 
         /// <summary>
@@ -175,11 +175,11 @@ namespace POCQL.Model
                 // *** 從新取對應參數的名字: Pre_{Property} or Post_{Property} ***
                 if (attr.Set == BetweenSet.PrefixValue)
                 {
-                    preParamName = attr.Set.GetDescription().ExtFormat(this.ParameterName);
+                    preParamName = attr.Set.GetDescription().StringFormat(this.ParameterName);
                 }
                 else
                 {
-                    postParamName = attr.Set.GetDescription().ExtFormat(this.ParameterName);
+                    postParamName = attr.Set.GetDescription().StringFormat(this.ParameterName);
                 }
             }
 
@@ -190,15 +190,15 @@ namespace POCQL.Model
             // *** 這邊要處理如果PrefixValue或PostfixValue其中一者為NULL的情況 ***
             // *** 如果PrefixValue = NULL，則要回傳 {Column Value} <= PostfixValue ***
             if (preParamName == string.Empty && postParamName != string.Empty)
-                return ConditionOperator.LessOrEqual.GetDescription().ExtFormat(column, postParamName);
+                return ConditionOperator.LessOrEqual.GetDescription().StringFormat(column, postParamName);
 
             // *** 如果PostfixValue = NULL，則要回傳 {Column Value} >= PrefixValue ***
             else if (preParamName != string.Empty && postParamName == string.Empty)
-                return ConditionOperator.MoreOrEqual.GetDescription().ExtFormat(column, preParamName);
+                return ConditionOperator.MoreOrEqual.GetDescription().StringFormat(column, preParamName);
 
             // *** 其他情況就正常回傳Between運算式 ***
             else
-                return this.Operator.GetDescription().ExtFormat(column, preParamName, postParamName);
+                return this.Operator.GetDescription().StringFormat(column, preParamName, postParamName);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using POCQL.ToolExt;
+using POCQL.Extension;
 
 namespace POCQL.Process.Helper
 {
@@ -109,12 +109,12 @@ namespace POCQL.Process.Helper
                 // *** 從新取對應參數的名字: Pre_{Property} or Post_{Property} ***
                 if (attr.Set == BetweenSet.PrefixValue)
                 {
-                    preParamName = attr.Set.GetDescription().ExtFormat(paramName);
+                    preParamName = attr.Set.GetDescription().StringFormat(paramName);
                     dic.AddUnrepeatKey(preParamName, value);
                 }
                 else
                 {
-                    postParamName = attr.Set.GetDescription().ExtFormat(paramName);
+                    postParamName = attr.Set.GetDescription().StringFormat(paramName);
                     dic.AddUnrepeatKey(postParamName, value);
                 }
             }

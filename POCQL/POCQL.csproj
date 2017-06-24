@@ -68,7 +68,6 @@
     <Compile Include="Model\MapAttribute\ReadOnlyAttribute.cs" />
     <Compile Include="Model\OrderSet.cs" />
     <Compile Include="Model\PagingResult.cs" />
-    <Compile Include="Model\SqlSet.cs" />
     <Compile Include="Model\STMOperator.cs" />
     <Compile Include="Model\TableSet.cs" />
     <Compile Include="Process\Delete.cs" />
@@ -99,17 +98,15 @@
     <Compile Include="SqlObject\MSSQL\MoveDataObject.cs" />
     <Compile Include="SqlObject\MSSQL\SelectObject.cs" />
     <Compile Include="SqlObject\MSSQL\UpdateObject.cs" />
-    <Compile Include="ToolExt\ArrayExt.cs" />
-    <Compile Include="ToolExt\DictionaryExt.cs" />
-    <Compile Include="ToolExt\EnumExt.cs" />
-    <Compile Include="ToolExt\IEnumerableExt.cs" />
-    <Compile Include="ToolExt\ObjectExt.cs" />
-    <Compile Include="ToolExt\StringExt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dao\Dao.csproj">
-      <Project>{5e77cdba-aec3-494d-a1e2-e9b3ff4773c5}</Project>
-      <Name>Dao</Name>
+    <ProjectReference Include="..\POCQL.DAO\POCQL.DAO.csproj">
+      <Project>{5D6C3FF0-63FB-45A7-BECE-496F0461782B}</Project>
+      <Name>POCQL.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POCQL.Extension\POCQL.Extension.csproj">
+      <Project>{6575df6a-3562-4868-b20a-20c2eb8be791}</Project>
+      <Name>POCQL.Extension</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
