@@ -9,7 +9,7 @@ namespace POCQL.Model
     /// 主要Table資訊
     /// </summary>
     public class TableSet<T> : STMOperator<T>
-        where T : class 
+        where T : class
     {
         /// <summary>
         /// Table名
@@ -42,7 +42,7 @@ namespace POCQL.Model
             }
 
             public SourceTableSet(string name, string alias)
-                :this(name)
+                : this(name)
             {
                 this.Alias = alias;
             }

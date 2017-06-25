@@ -53,11 +53,11 @@ namespace POCQL.MSSQL
                 { true, $@"{this.CteContain}
                             UPDATE {(!this.Table.Alias.IsNullOrEmpty() ? this.Table.Alias : this.Table.TableName)}
                                SET {update}
-                              FROM {$"{ this.Table.TableName} {this.Table.Alias ?? string.Empty }"}
+                              FROM {$"[{ this.Table.TableName}] {this.Table.Alias ?? string.Empty }"}
                               {this.GetSource()}
                              WHERE {this.Condition}"},
                 { false, $@"{this.CteContain}
-                           UPDATE {$"{ this.Table.TableName} {this.Table.Alias ?? string.Empty }"}
+                           UPDATE {$"[{ this.Table.TableName}] {this.Table.Alias ?? string.Empty }"}
                               SET {update}
                             WHERE {this.Condition}"}
             }[this.Table.HasSourceTables];
@@ -113,7 +113,7 @@ namespace POCQL.MSSQL
 
             var sourceTable = this.Table.SourceTables.First();
 
-            return $"INNER JOIN {$"{sourceTable.TableName} {sourceTable.Alias ?? string.Empty}"} ON {sourceTable.JoinCondition}";
+            return $"INNER JOIN {$"[{sourceTable.TableName}] {sourceTable.Alias ?? string.Empty}"} ON {sourceTable.JoinCondition}";
         }
     }
 }

@@ -23,7 +23,7 @@ namespace POCQL.MSSQL
 
         public override string ToString()
         {
-            return $@"DELETE FROM {this.Table.TableName} WHERE {this.Condition}";
+            return $@"DELETE FROM [{this.Table.TableName}] WHERE {this.Condition}";
         }
     }
 }

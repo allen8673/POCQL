@@ -49,7 +49,7 @@ namespace POCQL.MSSQL
                                                         .From(sourceTable.TableName, sourceTable.Alias)
                                                         .Where(this.Condition);
                             return this.CteContain + Environment.NewLine
-                                 + $"INSERT INTO {this.Table.TableName}" + Environment.NewLine
+                                 + $"INSERT INTO [{this.Table.TableName}]" + Environment.NewLine
                                  + $"       {(string.IsNullOrEmpty(columns) ? string.Empty : $"({columns})")}" + Environment.NewLine
                                  + select;
                         })
@@ -69,7 +69,7 @@ namespace POCQL.MSSQL
                             }));
 
                             return this.CteContain + Environment.NewLine
-                                 + $"INSERT INTO {this.Table.TableName}" + Environment.NewLine
+                                 + $"INSERT INTO [{this.Table.TableName}]" + Environment.NewLine
                                  + $"       ({columns})" + Environment.NewLine
                                  + $"VALUES ({values})";
                         })

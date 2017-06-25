@@ -190,7 +190,7 @@ namespace POCQL.MSSQL
             return $@"SELECT {(this.IsDistinct ? "DISTINCT" : string.Empty)} 
                              {(this.TopCount > 0 ? $"TOP {this.TopCount}" : string.Empty)} 
                              {(columns.Count() > 0 ? string.Join(",", columns) : "*")} 
-                        FROM {$"{this.Table.TableName} {this.Table.Alias ?? string.Empty}"} {(!this.LockTable ? "WITH (NOLOCK)" : string.Empty)}
+                        FROM {$"[{this.Table.TableName}] {this.Table.Alias ?? string.Empty}"} {(!this.LockTable ? "WITH (NOLOCK)" : string.Empty)}
                              {this.GetJoin()}
                         {(this.Condition.IsNullOrEmpty() ? string.Empty : $"WHERE {this.Condition}")} 
                         {groupBy}";
@@ -225,7 +225,7 @@ namespace POCQL.MSSQL
             foreach (var item in this.Table.SourceTables)
             {
                 join += Environment.NewLine
-                        + $"{item.Join.GetDescription()} {item.TableName} {item.Alias ?? string.Empty} {(!item.LockTable ? "WITH (NOLOCK)" : string.Empty)} ON {item.JoinCondition}";
+                        + $"{item.Join.GetDescription()} [{item.TableName}] {item.Alias ?? string.Empty} {(!item.LockTable ? "WITH (NOLOCK)" : string.Empty)} ON {item.JoinCondition}";
             }
 
             return join;

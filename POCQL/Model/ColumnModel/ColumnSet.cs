@@ -181,7 +181,7 @@ namespace POCQL.Model
         internal string ToString(Dictionary<string, string> tableAlias, bool ignoreDataSource, bool mapProperty)
         {
             return mapProperty ?
-                $"{this.ToColumnString(tableAlias, ignoreDataSource)} [{this.Property.IfNullOrEmpty(this.ColumnName)}]" :
+                $"{this.ToColumnString(tableAlias, ignoreDataSource)} AS [{this.Property.IfNullOrEmpty(this.ColumnName)}]" :
                 $"{this.ToColumnString(tableAlias, ignoreDataSource)}";
         }
 
