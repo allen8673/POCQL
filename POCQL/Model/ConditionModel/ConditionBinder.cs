@@ -1,4 +1,6 @@
-﻿using POCQL.Model;
+﻿using POCQL.Extension;
+using POCQL.Model;
+using POCQL.Model.MapAttribute;
 using POCQL.Process.Helper;
 using System;
 using System.Collections.Generic;
@@ -21,7 +23,7 @@ namespace POCQL
         /// <param name="customCondition">Custom Condition</param>
         public void Add(string customCondition)
         {
-            if (!string.IsNullOrEmpty(customCondition))
+            if (!customCondition.IsNullOrEmpty())
                 base.Add(new ConditionBinderSet(new ConditionSet(customCondition)));
         }
 
@@ -32,8 +34,19 @@ namespace POCQL
         /// <param name="filter">Binding Filter</param>
         public void Add(string customCondition, Func<bool> filter)
         {
-            if (!string.IsNullOrEmpty(customCondition))
+            if (!customCondition.IsNullOrEmpty())
                 base.Add(new ConditionBinderSet(new ConditionSet(customCondition), filter));
+        }
+
+        /// <summary>
+        /// Add ConditionSets
+        /// </summary>
+        /// <param name="customCondition">Custom Condition</param>
+        /// <param name="and_or">And Or Operator</param>
+        public void Add(string customCondition, AndOrOpt and_or)
+        {
+            if(!customCondition.IsNullOrEmpty())
+                base.Add(new ConditionBinderSet(new ConditionSet(customCondition, (AndOrOperator)Enum.Parse(typeof(AndOrOperator), and_or.ToString()))));
         }
 
         /// <summary>
@@ -101,8 +114,8 @@ namespace POCQL
         /// <param name="customConditions">Custom Conditions</param>
         public void Add(IEnumerable<string> customConditions)
         {
-            this.AddRange( customConditions.Where(i=> !string.IsNullOrEmpty(i))
-                                           .Select(i=> new ConditionBinderSet<T>(new ConditionSet(i), null, null)));
+            this.AddRange( customConditions.Where(i=> !i.IsNullOrEmpty())
+                                           .Select(i=> new ConditionBinderSet<T>(new ConditionSet(i))));
         }
 
         /// <summary>
@@ -116,15 +129,38 @@ namespace POCQL
         }
 
         /// <summary>
+        /// Add ConditionSets
+        /// </summary>
+        /// <param name="customCondition">Custom Condition</param>
+        /// <param name="and_or">And Or Operator</param>
+        public void Add(string customCondition, AndOrOpt and_or)
+        {
+            if (!customCondition.IsNullOrEmpty())
+                base.Add(new ConditionBinderSet<T>(new ConditionSet(customCondition, (AndOrOperator)Enum.Parse(typeof(AndOrOperator), and_or.ToString()))));
+        }
+
+        /// <summary>
         /// Add ConditionSet
         /// </summary>
-        /// <param name="exp">Lambda Expression</param>
         /// <param name="customCondition">Custom Condition</param>
+        /// <param name="exp">Lambda Expression</param>
         /// <param name="filter">Binding Filter</param>
         public void Add(string customCondition, Expression<Func<T, object>> exp, Func<bool> filter)
         {
-            if (!string.IsNullOrEmpty(customCondition))
+            if (!customCondition.IsNullOrEmpty())
                 base.Add(new ConditionBinderSet<T>(new ConditionSet(customCondition), exp, filter));
+        }
+
+        /// <summary>
+        /// Add ConditionSets
+        /// </summary>
+        /// <param name="customCondition">Custom Condition</param>
+        /// <param name="exp">Lambda Expression</param>
+        /// <param name="and_or">And Or Operator</param>
+        public void Add(string customCondition, Expression<Func<T, object>> exp, AndOrOpt and_or)
+        {
+            if (!customCondition.IsNullOrEmpty())
+                base.Add(new ConditionBinderSet<T>(new ConditionSet(customCondition, (AndOrOperator)Enum.Parse(typeof(AndOrOperator), and_or.ToString())), exp));
         }
 
         /// <summary>
@@ -180,7 +216,14 @@ namespace POCQL
         }
     }
 
-
+    /// <summary>
+    /// AND, OR運算子
+    /// </summary>
+    public enum AndOrOpt
+    {
+        AND,
+        OR
+    }
 
 
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POCQL.Extension;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -152,7 +153,7 @@ namespace POCQL.Model
                     .ToList()
                     .ForEach(i => dict.Add(i.TableName, i.Alias));
 
-                return dict;
+                return dict.Where(i => i.Key.IsNullOrEmpty()).ToDictionary(k => k.Key, v => v.Value);
             }
         }
     }

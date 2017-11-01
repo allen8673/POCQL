@@ -46,7 +46,7 @@ namespace POCQL.MSSQL
                                        ColumnSet.ParseDataSource($"{i.ColumnName}:{i.DataSource.SourceValue}", i.IsPrimaryKey, i.ReadOnly, i.Aggregate);
                             });
                             SelectObject select = Select.Columns(columnSets.ToArray(), false)
-                                                        .From(sourceTable.TableName, sourceTable.Alias)
+                                                        .From(sourceTable.TableName, sourceTable.Alias, true)
                                                         .Where(this.Condition);
                             return this.CteContain + Environment.NewLine
                                  + $"INSERT INTO [{this.Table.TableName}]" + Environment.NewLine

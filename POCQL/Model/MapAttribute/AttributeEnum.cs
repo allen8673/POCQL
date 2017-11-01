@@ -116,6 +116,14 @@ namespace POCQL.Model.MapAttribute
         [Description("{0} BETWEEN @{1} AND @{2}")]
         Between,
 
+        /// <summary>
+        /// CONTAINS(Column, Value)
+        /// 注意: 此運算子只能用於已經設定全文檢索的欄位
+        /// </summary>
+        [NullDescription(MapAttributeConst.IsNull)]
+        [RawDescription("CONTAINS({0}, {1})")]
+        [Description("CONTAINS({0}, @{1})")]
+        Contains,
     }
 
     /// <summary>
@@ -132,7 +140,7 @@ namespace POCQL.Model.MapAttribute
     /// <summary>
     /// AND, OR運算子
     /// </summary>
-    public enum AndOrOperator 
+    public enum AndOrOperator
     {
         [Description(" AND ")]
         AND,
@@ -150,6 +158,8 @@ namespace POCQL.Model.MapAttribute
         AVG,
         [Description("COUNT({#COLUMN#})")]
         COUNT,
+        [Description("COUNT(DISTINCT {#COLUMN#})")]
+        COUNT_DISTINCT,
         [Description("FIRST({#COLUMN#})")]
         FIRST,
         [Description("LAST({#COLUMN#})")]
@@ -165,7 +175,7 @@ namespace POCQL.Model.MapAttribute
     /// <summary>
     /// 映射型態
     /// </summary>
-    public enum MapType 
+    public enum MapType
     {
         /// <summary>
         /// 欄位對物件屬性的映射

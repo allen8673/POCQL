@@ -381,8 +381,11 @@ namespace POCQL.SqlObject
         /// <returns></returns>
         public TDerive SetTable(string tableParameter, string currentTable)
         {
+            this.TabelParameterMaps = new Dictionary<string, string>(this.TabelParameterMaps);
 
-            if (!this.TabelParameterMaps.ContainsKey(tableParameter))
+            if (this.TabelParameterMaps.ContainsKey(tableParameter))
+                this.TabelParameterMaps[tableParameter] = currentTable;
+            else
                 this.TabelParameterMaps.Add(tableParameter, currentTable);
 
             return this as TDerive;

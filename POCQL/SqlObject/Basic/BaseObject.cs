@@ -19,6 +19,7 @@ namespace POCQL.SqlObject
             this.ColumnInfos = new ColumnSet[] { };
             this.ConditionInfo = new ConditionSet[] { };
             this.CteContain = string.Empty;
+            this.Table = new TableSet(string.Empty, string.Empty);
         }
 
         #region Property

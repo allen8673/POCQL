@@ -216,6 +216,17 @@ namespace POCQL.MSSQL
         }
 
         /// <summary>
+        /// 取得FROM XXX Sql
+        /// </summary>
+        /// <returns></returns>
+        private string GetFrom()
+        {
+            return this.Table.TableName.IsNullOrEmpty() ?
+                   string.Empty :
+                   $"FROM {$"{this.Table.TableName} {this.Table.Alias ?? string.Empty}"} {(!this.LockTable ? "WITH (NOLOCK)" : string.Empty)}";
+        }
+
+        /// <summary>
         /// 取得INNER JOIN SQL 字串
         /// </summary>
         /// <returns></returns>
