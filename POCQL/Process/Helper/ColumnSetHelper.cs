@@ -96,7 +96,7 @@ namespace POCQL.Process.Helper
                                          return ((INullable)obj).NullableProperties ?? new List<string>();
                                      })() : new string[] { };
 
-            foreach (PropertyInfo propInfo in propInfos)
+            foreach (PropertyInfo propInfo in propInfos.OrderBy(i => i.Name))
             {
                 // *** 解析Property所擁有與Column有關的設定 ***
                 columnPropInfo = new ColumnPropertyInfo(propInfo, defaultTable, propInfo.GetValue(obj), nullableProperties);
