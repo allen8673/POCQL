@@ -331,6 +331,8 @@ public class Employee
 
 	[ColumnMapper("TITLE")]
 	public string Title { get; set; }
+	
+	public bool IsSupervisor { get; set; }
 }```
 ```cs/// <summary>
 /// 員工詳細資料
@@ -416,28 +418,109 @@ public class UserCdt
 
 <p style="page-break-before: always;"/>
 # Select Method
-## 基本方法說明
-### .Columns<T>(bool mapToProp = true)
-> 依類型指定所要查詢的欄位。
+## 常用方法
 
-### .Columns<TDomain, TView>(bool mapToProp = true)
-> 依`View Model`與`Domain Model(Entity)`比對出交集的Property後，指定所要查詢的欄位。
+### .From(string table, [string tableAlias,] [bool lockTable])
+> 指定查詢表單(Table)
 
-#### 上述方法參數說明
+|參數|型態|說明|
+|:--|:--|:--|
+| table | string | 查詢表單 |
+| tableAlias | string | 選填欄位；查詢表單別名。 |
+| lockTable | bool | 選填欄位；是否Lock表單，**是**-產出`SELECT ... FROM [Table]`Sql，**否**-產出`SELECT ... FROM [Table] WITH (ONLOCK)`Sql；預設為*false*。 |
+
+### .Where(string condition)
+> 以字串給予查詢條件 
+
+|參數|型態|說明|
+|:--|:--|:--|
+| condition | string | Sql查詢條件 |
+### .Where\<T>(T conditionObj)
+> 以條件物件給予查詢條件
+
+|參數|型態|說明|
+|:--|:--|:--|
+| conditionObj | T | 查詢用物件 |
+### .Columns\<T>(bool mapToProp = true) & <br/>.Columns\<TDomain, TView>(bool mapToProp = true) ###
+> 1. 依類型指定所要查詢的欄位。
+> 2. 依`View Model`與`Domain Model(Entity)`比對出交集的Property後，指定所要查詢的欄位。
 
 |參數|型態|說明|
 |:--|:--|:--|
 | mapToProp | bool | 是否將欄位映射至Property；**是**-以`{Column} AS {Property}`，**否**-以`{Column} AS {Column}`輸出查詢欄位語法。|
----
 
-### Columns(params string[] columns)
+**基本使用範例**<br/>
+查詢`Employee`類別對應欄位範例及Sql結果如下：
+
+```cs
+string sql = Select.Columns<Employee>()                   .From("EMPLOYEE")
+                   .Where("NAME = @name")
+                   .ToString();
+```
+```sql
+SELECT EMPLOYEE_NO AS [EmployeeNo],
+       NAME AS [Name],
+       SEX AS [Sex],
+       DEPT AS [Department],
+       TITLE AS [Title] 
+ FROM [EMPLOYEE] WITH (NOLOCK) 
+WHERE NAME = @name
+```
+給予`EMPLOYEE`表單別名的範例及Sql結果如下：
+
+```cs
+string sql = Select.Columns<Employee>()                   .From("EMPLOYEE", "EPY")
+                   .Where("EPY.NAME = @name")
+                   .ToString();
+```
+```sql
+SELECT EPY.EMPLOYEE_NO AS [EmployeeNo],
+       EPY.NAME AS [Name],
+       EPY.SEX AS [Sex],
+       EPY.DEPT AS [Department],
+       EPY.TITLE AS [Title] 
+ FROM [EMPLOYEE] EPY WITH (NOLOCK) 
+WHERE EPY.NAME = @name 
+```
+透過條件物件給予查詢條件範例及Sql結果如下：
+
+```cs
+EmployeeCdt condition = new EmployeeCdt{    Name = "User",    Department = "100"};
+
+string sql = Select.Columns<Employee>()                   .From("EMPLOYEE", "EPY")
+                   .Where(condition)
+                   .ToString();
+```
+```sql
+SELECT EPY.EMPLOYEE_NO AS [EmployeeNo],
+       EPY.NAME AS [Name],
+       EPY.SEX AS [Sex],
+       EPY.DEPT AS [Department],
+       EPY.TITLE AS [Title] 
+ FROM [EMPLOYEE] EPY WITH (NOLOCK) 
+WHERE EPY.NAME = @Name 
+  AND EPY.DEPT = @Department 
+```
+### .Columns(params string[] columns)
 > 一傳入參數`columns`指定所要查詢的欄位
 
 |參數|型態|說明|
 |:--|:--|:--|
 | columns | params string[] | 指定要查詢之欄位，若要給予欄位別名，字串格式為`{欄位}:{別名}`。 |
+**使用範例及Sql結果如下**
 
-**上述傳入參數值可以0至多；如果未傳入任何參數值，同時也無使用其他方法指定查詢欄位，則會產生`Select * ...`的Sql語法。範例及結果如下：**
+```cs
+string sql = Select.Columns("EMPLOYEE_NO : No",                            "NAME",                             "SEX")                   .From("EMPLOYEE")                   .Where("DEPT = @dept")                   .ToString();
+```
+```sql
+SELECT EMPLOYEE_NO AS [No],
+       NAME AS [NAME],
+       SEX AS [SEX] 
+ FROM [EMPLOYEE] WITH (NOLOCK)
+ WHERE DEPT = @dept 
+```
+上例特別以`{欄位}:{別名}`格式將`EMPLOYEE_NO`轉成別名`No`，其餘欄位則未作轉換。<br/>
+參數`columns`可傳入值為0至多個；如果未傳入任何參數值，同時也無使用其他方法指定查詢欄位，則會產生`Select * ...`的Sql語法。**範例及結果如下**：
 
 ```cs
 string sql = Select.Columns()                   .From("EMPLOYEE")
@@ -449,7 +532,146 @@ SELECT *
   FROM [EMPLOYEE] WITH (NOLOCK)
  WHERE NAME = @name 
 ```
-### 
+
+### .MatcheColumns\<T>(string matche)
+> 用於Property掛上[`MultiColumnMapperAttribute`](#toc_5)的類別，透過參數`matche`指定查詢相似名稱的欄位。
+
+|參數|型態|說明|
+|:--|:--|:--|
+| matche | string | 用以比對Property所對應欄位的相似Prefix字串 |
+```cs
+[EntityMapper]public class UserInfo{    [MultiColumnMapper("CRT_USER_ID", "MDF_USER_ID", "MAG_USER_ID")]    public string UserID { get; set; }    [MultiColumnMapper("CRT_USER_NAME", "MDF_USER_NAME", "MAG_USER_NAME")]    public string UserName { get; set; }    [MultiColumnMapper("CRT_DEPT_ID", "MDF_DEPT_ID", "MAG_DEPT_ID")]    public string DeptID { get; set; }    [MultiColumnMapper("CRT_DEPT_NAME", "MDF_DEPT_NAME", "MAG_DEPT_NAME")]    public string DeptName { get; set; }
+}
+```
+**以上類別作為範例程式及結果如下**
+
+```cs
+string sql = Select.MatcheColumns<UserInfo>("MDF")
+                   .From("EMPLOYEE")
+                   .Where("DEPT = @Dept")
+                   .ToString();
+```
+```sql
+SELECT MDF_USER_ID AS [UserID],
+       MDF_USER_NAME AS [UserName],
+       MDF_DEPT_ID AS [DeptID],
+       MDF_DEPT_NAME AS [DeptName]
+  FROM [EMPLOYEE] WITH (NOLOCK)
+ WHERE DEPT = @Dept 
+```
+
+### .\[InnerJoin/LeftJoin](string table, [string tableAlias,] [bool lockScrTable,] string joinCondition)
+> 產生`INNSER/LEFT JOIN`Sql語法。 
+
+|參數|型態|說明|
+|:--|:--|:--|
+| table | string | JOIN 表單 |
+| tableAlias | string | JOIN 表單別名 |
+| lockScrTable | bool | 是否Lock Join表單 |
+| joinCondition | string | JOIN條件 |
+
+```cs
+[EntityMapper("EMPLOYEE")]public class EmployeeForJoin{    [PrimaryKey, ColumnMapper("EMPLOYEE_NO")]
+    public string EmployeeNo { get; set; }
+    
+    [ColumnMapper("NAME")]
+    public string Name { get; set; }
+    
+    [ColumnMapper("SEX")]
+    public string Sex { get; set; }
+    
+    [ColumnMapper("DEPT")]
+    public string Department { get; set; }
+    
+    [ColumnMapper("TITLE")]
+    public string Title { get; set; }
+   
+    [ColumnMapper("ID", "USER")]
+    public string Id { get; set; }
+    
+    [ColumnMapper("BIRTH_DATE", "USER")]
+    public DateTime? BirthDate { get; set; }
+    
+    [ColumnMapper("MARITAL_STATUS", "USER")]
+    public string MaritalStatus { get; set; }
+    
+    [ColumnMapper("ADDRESS", "USER")]
+    public string Address { get; set; }
+    
+    [ColumnMapper("PHONE_NUMBER", "USER")]
+    public string PhoneNumber { get; set; }}
+```
+以上`EmployeeForJoin`為例，使用範例及結果如下：
+
+```cs
+string sql = Select.Columns<EmployeeForJoin>()                   .From("EMPLOYEE", "EPY")                   .InnerJoin("USER", "USR", "EPY.EMPLOYEE_NO = USR.EMPLOYEE_NO")                   .Where("DEPT = @Dept")                   .ToString();
+```
+```sql
+SELECT EPY.EMPLOYEE_NO AS [EmployeeNo],
+       EPY.NAME AS [Name],
+       EPY.SEX AS [Sex],
+       EPY.DEPT AS [Department],
+       EPY.TITLE AS [Title],
+       USR.ID AS [Id],
+       USR.BIRTH_DATE AS [BirthDate],
+       USR.MARITAL_STATUS AS [MaritalStatus],
+       USR.ADDRESS AS [Address],
+       USR.PHONE_NUMBER AS [PhoneNumber] 
+  FROM [EMPLOYEE] EPY WITH (NOLOCK)
+ INNER JOIN [USER] USR WITH (NOLOCK) 
+    ON EPY.EMPLOYEE_NO = USR.EMPLOYEE_NO
+ WHERE DEPT = @Dept
+```
+
+#### 以多類別(Entity)產生JOIN語法
+> 上述範例使用類別`EmployeeForJoin`是將兩張表單的的欄位集中於同一類別中，但是SELECT同時支援以不同Entity產生JOIN語法
+
+以`Employee`和`User`兩個類別
+
+## 進階方法
+### .Where\<T>(T conditionObj, [ConditionBinder/ConditionBinder\<T>] binder)
+> 以條件物件給予查詢條件，同時透過`ConditionBinder`於特殊應用下給予指定條件
+
+|參數|型態|說明|
+|:--|:--|:--|
+| conditionObj | T | 查詢用物件 |
+| binder | ConditionBinder /<br/>ConditionBinder\<T> | 用以比對Property並將值映射至對應查詢條件上的類別(物件)。 |
+
+### .Columns\<TDomain>(ColumnBinder\<TDomain> binder) & <br/> .Columns\<TDomain, TView>(ColumnBinder\<TDomain, TView> binder)
+> 1. 透過`ColumnBinder`指定欲查詢的資料，並將值指定至`TDomain`類型中的特定Property
+> 2. 如同`.Columns<TDomain, TView>(bool mapToProp = true)`，比對`View Model`與`Domain Model(Entity)`交集的Property後，再透過`ColumnBinder`將指定查詢的資料映射至特定Property。
+
+|參數|型態|說明|
+|:--|:--|:--|
+| binder | ColumnBinder\<TDomain> /<br/>ColumnBinder\<TDomain, TView> | 用以將指定查詢資料映射至指定Property的類別(物件) |
+
+**方法使用範例如下**
+
+```cs
+string sql = Select.Columns<Employee>()
+                    .Columns<Employee>(new ColumnBinder<Employee>
+                    {
+                        { "KIND" },
+                        { "CASE WHEN KIND = '1' THEN 1 ELSE 0 END", i => i.IsSupervisor },
+                    })
+                    .From("EMPLOYEE")
+                    .Where("DEPT = @Dept")
+                    .ToString();
+```
+```sql
+SELECT EMPLOYEE_NO AS [EmployeeNo],
+       NAME AS [Name],
+       SEX AS [Sex],
+       DEPT AS [Department],
+       TITLE AS [Title],
+       KIND AS [KIND],
+       CASE WHEN KIND = '1' THEN 1 ELSE 0 END AS [IsSupervisor] 
+  FROM [EMPLOYEE] WITH (NOLOCK)
+ WHERE DEPT = @Dept 
+```
+執得注意，上例並未將欄位`KIND`映射至任何Property，以致Sql查詢該欄位是以原本`查詢資料`(以該範例是KIND)字串為別名；
+而上例將指定將`CASE WHEN KIND = '1' THEN 1 ELSE 0 END`結果映射至`IsSupervisor`，所以另該查詢結果別名為`IsSupervisor`。
+
 
 
 
