@@ -181,7 +181,7 @@ namespace POCQL.MSSQL
                 // *** 反之，只需要對使用者給予的GroupByItems與ColumnInfos做比對即可 ***
                 IEnumerable<ColumnSet> columnsets = this.ColumnInfos.Where(i => commonFilter(i) && (groupByItemFilter(i) || columnInfoFilter(i)));
                 // *** 如果物件沒有對應的prop，就直接拿GroupByItems做Group By ***
-                IEnumerable<string> groupColumns = columnsets.Count() > 0 ? this.ParseColumns(columnsets, table2Alias, false).Concat(this.GroupByItems)
+                IEnumerable<string> groupColumns = columnsets.Count() > 0 ? this.ParseColumns(columnsets, table2Alias, false).Concat(this.GroupByItems).Distinct()
                                                                           : this.GroupByItems;
                 groupBy = $"GROUP BY {string.Join(",", groupColumns)}";
             }
