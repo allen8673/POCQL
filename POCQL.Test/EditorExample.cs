@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using POCQL.DAO.Model;
 using POCQL.Model;
+using POCQL.Model.MapAttribute;
 using POCQL.Test.Example.Model;
 using System;
 using System.Collections.Generic;
@@ -94,17 +95,172 @@ namespace POCQL.Test.Example
                                 .Output(new { param = "value" });
 
             SqlSet set5 = Insert.Table("Tabel1")
-                                .Columns("Column_1: Data_1", 
-                                         "Column_2: Data_2", 
+                                .Columns("Column_1: Data_1",
+                                         "Column_2: Data_2",
                                          "Column_3: Data_3",
-                                         "Column_4: Data_4")                           
-                                .MatcheColumns(mcModel, "Mat1", "Mat2")     
-                                .ColumnsFrom("Tabel2 T2",                   
-                                             "OtherColumn1",                
+                                         "Column_4: Data_4")
+                                .MatcheColumns(mcModel, "Mat1", "Mat2")
+                                .ColumnsFrom("Tabel2 T2",
+                                             "OtherColumn1",
                                              "OtherColumn2 : SColumn2")
                                 .Where("{Condition}")
                                 .Output(new { param = "value" });
 
+        }
+
+        [TestMethod]
+        public void Insert_Demo_1()
+        {
+            string sql = Insert.Table("EMPLOYEE")
+                               .Columns("NAME : '王O明'",
+                                        "SEX : 'M'",
+                                        "DEPT : dbo.GETDEPT()",
+                                        "TITLE : dbo.GETDEF('title')")
+                               .ToString();
+        }
+
+        [TestMethod]
+        public void Insert_Demo_2()
+        {
+
+            Employee employee = new Employee
+            {
+                Name = "王O明",
+                Sex = "M",
+                Department = "100"
+            };
+
+            string sql = Insert.Table("EMPLOYEE")
+                               .Columns(employee,                                        
+                                        "TITLE : dbo.GETDEF('title')")
+                               .Columns(new ValueBinder<Employee>(employee)
+                               {
+                                   { "DEPT_NAME : dbo.GETNAME('dept', @Department)", i=>i.Department}
+                               })
+                               .ToString();
+        }
+
+        [TestMethod]
+        public void Insert_Demo_3()
+        {
+            string sql = Insert.Table("EMPLOYEE")
+                               .ColumnsFrom("USER", 
+                                            "NAME", "SEX",
+                                            "DEPT : @DEPT", "TITLE : @TITLE",
+                                            "DEPT_NAME : dbo.GETNAME('dept', @Department)")
+                               .Where("ID = @id")
+                               .ToString();
+        }
+
+        [TestMethod]
+        public void Insert_Demo_4()
+        {
+            Employee employee = new Employee
+            {
+                Name = "王O明",
+                Sex = "M",
+                Department = "100"
+            };
+
+            UserInfo userinfo = new UserInfo
+            {
+                UserID = "123",
+                UserName = "系O員",
+                DeptID = "001",
+                DeptName = "系統管理部"
+            };
+
+            string sql = Insert.Table("EMPLOYEE")
+                               .Columns(employee)
+                               .MatcheColumns(userinfo, "CRT")
+                               .Where("ID = @id")
+                               .ToString();
+        }
+
+        [TestMethod]
+        public void Update_Demo_1()
+        {
+            string sql = Update.Table("EMPLOYEE")
+                               .Columns("DEPT : '100'",
+                                        "TITLE : 'OO專員'")
+                               .Where("EMPLOYEE_NO = @no")
+                               .ToString();
+        }
+
+        [TestMethod]
+        public void Update_Demo_2()
+        {
+            Employee employee = new Employee
+            {
+                Department = "100",
+                Title = "OO專員"
+            };
+
+            string sql = Update.Table("EMPLOYEE")
+                               .Columns(employee)
+                               .Where("EMPLOYEE_NO = @no")
+                               .ToString();
+        }
+
+        [TestMethod]
+        public void Update_Demo_3()
+        {
+            string sql = Update.Table("EMPLOYEE", "EPY")
+                               .ColumnsFrom("USER", "USR", "USR.EMPLOYEE_NO = EPY.EMPLOYEE_NO",
+                                            "NAME", "ADDRESS", "PHONE_NUMBER")
+                               .Where("EPY.EMPLOYEE_NO = @no")
+                               .ToString();
+        }
+
+        [TestMethod]
+        public void Update_Demo_4()
+        {
+            string sql = Update.Table("EMPLOYEE", "EPY")
+                               .ColumnsFrom("USER", "USR", "USR.EMPLOYEE_NO = EPY.EMPLOYEE_NO",
+                                            "NAME")
+                               .ColumnsFrom("USER_DETAIL", "USR_DTL", "USR.EMPLOYEE_NO = EPY.EMPLOYEE_NO",
+                                            "ADDRESS", "PHONE_NUMBER")
+                               .Where("EPY.EMPLOYEE_NO = @no")
+                               .ToString();
+
+            
+        }
+
+        [EntityMapper]
+        public class UserInfo
+        {
+            [MultiColumnMapper("CRT_USER_ID", "MDF_USER_ID", "MAG_USER_ID")]
+            public string UserID { get; set; }
+
+            [MultiColumnMapper("CRT_USER_NAME", "MDF_USER_NAME", "MAG_USER_NAME")]
+            public string UserName { get; set; }
+
+            [MultiColumnMapper("CRT_DEPT_ID", "MDF_DEPT_ID", "MAG_DEPT_ID")]
+            public string DeptID { get; set; }
+
+            [MultiColumnMapper("CRT_DEPT_NAME", "MDF_DEPT_NAME", "MAG_DEPT_NAME")]
+            public string DeptName { get; set; }
+        }
+
+        [EntityMapper("EMPLOYEE")]
+        public class Employee
+        {
+            [PrimaryKey, ColumnMapper("EMPLOYEE_NO")]
+            public string EmployeeNo { get; set; }
+
+            [ColumnMapper("NAME")]
+            public string Name { get; set; }
+
+            [ColumnMapper("SEX")]
+            public string Sex { get; set; }
+
+            [ColumnMapper("DEPT")]
+            public string Department { get; set; }
+
+            [ColumnMapper("TITLE")]
+            public string Title { get; set; }
+
+            
         }
 
         [TestMethod]

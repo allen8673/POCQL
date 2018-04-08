@@ -19,6 +19,7 @@ namespace POCQL.Test.Example.Model
         public string Property_2 { get; set; }
 
         //本別
+        [Aggregation( AggregateFunction.SUM)]
         [ColumnMapper("Column_3")]
         public string Property_3 { get; set; }
     }
