@@ -435,12 +435,14 @@ public class UserCdt
 |參數|型態|說明|
 |:--|:--|:--|
 | condition | string | Sql查詢條件 |
+
 ### .Where\<T>(T conditionObj)
 > 以條件物件給予查詢條件
 
 |參數|型態|說明|
 |:--|:--|:--|
 | conditionObj | T | 查詢用物件 |
+
 ### .Columns\[\<T>\\\<TDomain, TView>\](bool mapToProp = true)
 > 1. 依類型指定所要查詢的欄位。
 > 2. 依`View Model`與`Domain Model(Entity)`比對出交集的Property後，指定所要查詢的欄位。
@@ -1051,7 +1053,7 @@ string sql = Insert.Table("EMPLOYEE")                   .ColumnsFrom("USER",  
        SEX AS [SEX],
        @DEPT AS [DEPT],
        @TITLE AS [TITLE],
-       dbo.GETNAME('dept', @Department) AS [DEPT_NAME]  FROM [USER]WHERE ID = @id 
+       dbo.GETNAME('dept', @Department) AS [DEPT_NAME]   FROM [USER] WHERE ID = @id 
 ```
 
 ## 進階方法
@@ -1088,10 +1090,9 @@ INSERT INTO [EMPLOYEE]       (NAME, SEX, DEPT, TITLE, DEPT_NAME)VALUES
 **以上類別作為範例程式及結果如下**
 
 ```cs
-Employee employee = new Employee{    Name = "王O明",    Sex = "M",    Department = "100"};UserInfo userinfo = new UserInfo{    UserID = "123",                UserName = "系O員",                DeptID = "001",                DeptName = "系統管理部"            };            string sql = Insert.Table("EMPLOYEE")                               .Columns(employee)                               .MatcheColumns(userinfo, "CRT")                               .Where("ID = @id")                               .ToString();
+Employee employee = new Employee{    Name = "王O明",    Sex = "M",    Department = "100"};UserInfo userinfo = new UserInfo{    UserID = "123",    UserName = "系O員",    DeptID = "001",    DeptName = "系統管理部"};string sql = Insert.Table("EMPLOYEE")                   .Columns(employee)                   .MatcheColumns(userinfo, "CRT")                   .Where("ID = @id")                   .ToString();
 ```
-```sql
-INSERT INTO [EMPLOYEE]       (NAME, SEX, DEPT, 
+```sqlINSERT INTO [EMPLOYEE]       (NAME, SEX, DEPT, 
         CRT_USER_ID, CRT_USER_NAME, CRT_DEPT_ID, CRT_DEPT_NAME)VALUES 
        (@NAME, @SEX, @DEPT,
         @CRT_USER_ID, @CRT_USER_NAME, @CRT_DEPT_ID, @CRT_DEPT_NAME)
@@ -1108,7 +1109,7 @@ Employee employee = new Employee{    Name = "王O明",    Sex = "M",    Depa
 | alias | string | Update表單別名 |
 
 ### .Where()
-> 使用方法與[`Select Method`](#toc_15)的`Where`方法相同，請參閱 [`.Where(string condition)`](#toc_18)， [`.Where<T>(T conditionObj)`](#toc_19) 和 [`Where<T>(T conditionObj, ConditionBinder binder)`](#toc_40)的說明；
+> 更新條件，使用方法與[`Select Method`](#toc_15)的`Where`方法相同，請參閱 [`.Where(string condition)`](#toc_18)， [`.Where<T>(T conditionObj)`](#toc_19) 和 [`Where<T>(T conditionObj, ConditionBinder binder)`](#toc_40)的說明；
 
 ### .Columns(params string[] otherColumns)
 > 透過參數指定要更新的欄位及其值，通常透過`{欄位}:{資料值/來源}`指定要更新的資料。
@@ -1161,6 +1162,81 @@ string sql = Update.Table("EMPLOYEE", "EPY")                   .ColumnsFrom("US
      ON USR.EMPLOYEE_NO = EPY.EMPLOYEE_NO  WHERE EPY.EMPLOYEE_NO = @no
 ```
 
+## 進階方法
+### .MatcheColumns\<T>(T value, params string[] matches)
+> 用於Property掛上[`MultiColumnMapperAttribute`](#toc_5)的類別，透過參數`matche`更新相似名稱的欄位中的值。
+
+|參數|型態|說明|
+|:--|:--|:--|
+| matche | string | 用以比對Property所對應欄位的相似Prefix字串 |
+
+```cs
+[EntityMapper]public class UserInfo{    [MultiColumnMapper("CRT_USER_ID", "MDF_USER_ID", "MAG_USER_ID")]    public string UserID { get; set; }    [MultiColumnMapper("CRT_USER_NAME", "MDF_USER_NAME", "MAG_USER_NAME")]    public string UserName { get; set; }    [MultiColumnMapper("CRT_DEPT_ID", "MDF_DEPT_ID", "MAG_DEPT_ID")]    public string DeptID { get; set; }    [MultiColumnMapper("CRT_DEPT_NAME", "MDF_DEPT_NAME", "MAG_DEPT_NAME")]    public string DeptName { get; set; }
+}
+```
+**以上類別作為範例程式及結果如下**
+
+```cs
+Employee employee = new Employee{    Department = "100",    Title = "OO專員"
+};UserInfo userinfo = new UserInfo{    UserID = "123",    UserName = "系O員",    DeptID = "001",    DeptName = "系統管理部"};string sql = Update.Table("EMPLOYEE", "EPY")                   .Columns(employee)                   .MatcheColumns(userinfo, "MDF")                   .Where("EPY.EMPLOYEE_NO = @no")                   .ToString();
+```
+```sql
+ UPDATE [EMPLOYEE] EPY    SET EPY.DEPT = @DEPT,
+        EPY.TITLE = @TITLE,
+        MDF_USER_ID = @MDF_USER_ID,
+        MDF_USER_NAME = @MDF_USER_NAME,
+        MDF_DEPT_ID = @MDF_DEPT_ID,
+        MDF_DEPT_NAME = @MDF_DEPT_NAME WHERE EPY.EMPLOYEE_NO = @no
+```
+
+# Delete Method
+## 常用方法
+### .Table(string table)
+> 指定Delete表單
+
+|參數|型態|說明|
+|:--|:--|:--|
+| table | string | Delete表單名稱 |
+
+### .Where()
+> 刪除條件，使用方法與[`Select Method`](#toc_15)的`Where`方法相同，請參閱 [`.Where(string condition)`](#toc_18)， [`.Where<T>(T conditionObj)`](#toc_19) 和 [`Where<T>(T conditionObj, ConditionBinder binder)`](#toc_40)的說明；
+
+## 使用範例
+```cs
+string sql = Delete.Table("EMPLOYEE")                   .Where("EMPLOYEE_NO = @no")                   .ToString();
+```
+```sql
+DELETE FROM [EMPLOYEE] WHERE EMPLOYEE_NO = @no
+``` 
+
+# MoveData
+> 將指定表單的資料移動至結構相同的表單中
+
+## 方法介紹
+### .From(string table)
+> 指定將資料移出的表單
+
+|參數|型態|說明|
+|:--|:--|:--|
+| table | string | 移出資料的表單名稱 |
+
+### .Into(string table)
+> 指定將資料移入的表單
+
+|參數|型態|說明|
+|:--|:--|:--|
+| table | string | 移入資料的表單名稱 |
+
+### .Where()
+> 刪除條件，使用方法與[`Select Method`](#toc_15)的`Where`方法相同，請參閱 [`.Where(string condition)`](#toc_18)， [`.Where<T>(T conditionObj)`](#toc_19) 和 [`Where<T>(T conditionObj, ConditionBinder binder)`](#toc_40)的說明；
+
+## 使用範例
+```cs
+string sql = MoveData.From("EMPLOYEE")                     .Into("EMPLOYEE_END")                     .Where("EMPLOYEE_NO = @no")                     .ToString();
+```
+```sql
+DELETE FROM [EMPLOYEE]OUTPUT DELETED.* INTO [EMPLOYEE_END] WHERE EMPLOYEE_NO = @no
+```
 
 
 
