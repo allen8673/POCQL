@@ -108,12 +108,11 @@ namespace POCQL.MSSQL
         /// <returns></returns>
         private string GetSource() 
         {
-            if (this.Table.SourceTables.Count() == 0)
-                return string.Empty;
+            return string.Join(Environment.NewLine, 
+                this.Table.SourceTables
+                          .Select(srcTable =>$"INNER JOIN {$"[{srcTable.TableName}] {srcTable.Alias ?? string.Empty}"} ON {srcTable.JoinCondition}"));
 
-            var sourceTable = this.Table.SourceTables.First();
-
-            return $"INNER JOIN {$"[{sourceTable.TableName}] {sourceTable.Alias ?? string.Empty}"} ON {sourceTable.JoinCondition}";
+           
         }
     }
 }

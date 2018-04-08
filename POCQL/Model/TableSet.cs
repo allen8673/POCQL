@@ -153,7 +153,7 @@ namespace POCQL.Model
                     .ToList()
                     .ForEach(i => dict.Add(i.TableName, i.Alias));
 
-                return dict.Where(i => i.Key.IsNullOrEmpty()).ToDictionary(k => k.Key, v => v.Value);
+                return dict.Where(i => !i.Key.IsNullOrEmpty()).ToDictionary(k => k.Key, v => v.Value);
             }
         }
     }
