@@ -21,10 +21,11 @@ namespace POCQL.Test.Example
         [TestMethod]
         public void CommonSelectExp()
         {
+            /// 加一段
             // *** 所有查詢: SELECT * FROM [TABEL] (WHERE [CONDITION]) ***
             var allSelect = Select.Columns()        // *** 所有查詢就不要指定欄位即可 ***
                                   .From("TABEL")    // *** 設定查詢Table ***
-                                  .Where("COLUMN = @para")  // *** 設定查詢條件 ***
+                                  .Where("COLUMN sss = @para")  // *** 設定查詢條件 ***
                                   .Output();
             //.Query(new        // *** 直接執行查詢並且回傳結果 ***
             //{                 // *** 可以使用.ToString()輸出SQL
