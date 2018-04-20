@@ -51,7 +51,7 @@ namespace POCQL.MSSQL
             string sql = new Dictionary<bool, string>
             {
                 { true, $@"{this.CteContain}
-                            UPDATE {(!this.Table.Alias.IsNullOrEmpty() ? this.Table.Alias : this.Table.TableName)}
+                            UPDATE {(!this.Table.Alias.IsNullOrEmpty() ? this.Table.Alias : $"[{this.Table.TableName}]")}
                                SET {update}
                               FROM {$"[{ this.Table.TableName}] {this.Table.Alias ?? string.Empty }"}
                               {this.GetSource()}

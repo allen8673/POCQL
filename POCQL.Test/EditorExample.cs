@@ -215,15 +215,44 @@ namespace POCQL.Test.Example
         [TestMethod]
         public void Update_Demo_4()
         {
+            Employee employee = new Employee
+            {
+                Department = "100",
+                Title = "OO專員"
+            };
+
+            UserInfo userinfo = new UserInfo
+            {
+                UserID = "123",
+                UserName = "系O員",
+                DeptID = "001",
+                DeptName = "系統管理部"
+            };
+
             string sql = Update.Table("EMPLOYEE", "EPY")
-                               .ColumnsFrom("USER", "USR", "USR.EMPLOYEE_NO = EPY.EMPLOYEE_NO",
-                                            "NAME")
-                               .ColumnsFrom("USER_DETAIL", "USR_DTL", "USR.EMPLOYEE_NO = EPY.EMPLOYEE_NO",
-                                            "ADDRESS", "PHONE_NUMBER")
+                               .Columns(employee)
+                               .MatcheColumns(userinfo, "MDF")
                                .Where("EPY.EMPLOYEE_NO = @no")
                                .ToString();
+        }
 
-            
+        [TestMethod]
+        public void Delete_Demo()
+        {
+            string sql = Delete.Table("EMPLOYEE")
+                               .Where("EMPLOYEE_NO = @no")
+                               .ToString();
+
+        }
+
+        [TestMethod]
+        public void MoveData_Demo()
+        {
+            string sql = MoveData.From("EMPLOYEE")
+                                 .Into("EMPLOYEE_END")
+                                 .Where("EMPLOYEE_NO = @no")
+                                 .ToString();
+
         }
 
         [EntityMapper]
@@ -374,5 +403,7 @@ namespace POCQL.Test.Example
                                   }).Output();
             Assert.IsTrue(true);
         }
+
+
     }
 }
